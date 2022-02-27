@@ -1,0 +1,48 @@
+<?php
+
+namespace App\Http\Requests;
+
+use Illuminate\Foundation\Http\FormRequest;
+
+class StoreTransactionRequest extends FormRequest
+{
+    /**
+     * Determine if the user is authorized to make this request.
+     *
+     * @return bool
+     */
+    public function authorize()
+    {
+        return true;
+    }
+
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array
+     */
+    public function rules()
+    {
+        return [
+            'category_id' => 'required',
+            'customer_id' => 'required',
+            'amount' => 'required',
+            'due_date' => 'required|date_format:Y-m-d',
+            'vat' => 'required|digits_between:0,3',
+            'is_vat_inclusive' => 'required|boolean',
+        ];
+    }
+
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'category_id.required' => 'Category is required',
+            'customer_id.required' => 'Payer is required',
+        ];
+    }
+}
